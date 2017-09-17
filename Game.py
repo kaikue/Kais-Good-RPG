@@ -34,9 +34,8 @@ def start():
     global clock
     clock = pygame.time.Clock()
     
-    #Start the player at [100, 100]
     global player_pos
-    player_pos = [100, 100]
+    player_pos = [(SCREEN_WIDTH - PLAYER_WIDTH) / 2, (SCREEN_HEIGHT - PLAYER_HEIGHT) / 2]
     
     global names
     names = Names.NameGenerator("name_parts.json")
@@ -46,50 +45,43 @@ def start():
 
 def run():
     while True:
-        #Wait one frame
         clock.tick_busy_loop(FRAMES_PER_SEC)
-        
-        #Process inputs and game logic
         update()
-        
-        #Draw to the screen
         render()
 
 def update():
-    #Put game logic in this function.
-    
-    #Get the list of currently pressed keys
     pressed = pygame.key.get_pressed()
     
-    #If the user pressed ESC: quit
     if pressed[pygame.K_ESCAPE]:
         sys.exit(0)
     
-    #If the user has pressed an arrow key, move the player
-    #Horizontal movement
-    if pressed[pygame.K_LEFT]:
+    if pressed[pygame.K_LEFT] or pressed[pygame.K_a]:
         player_pos[0] -= SPEED
-    if pressed[pygame.K_RIGHT]:
+    if pressed[pygame.K_RIGHT] or pressed[pygame.K_d]:
         player_pos[0] += SPEED
-    #Vertical movement
-    if pressed[pygame.K_UP]:
+    if pressed[pygame.K_UP] or pressed[pygame.K_w]:
         player_pos[1] -= SPEED
-    if pressed[pygame.K_DOWN]:
+    if pressed[pygame.K_DOWN] or pressed[pygame.K_s]:
         player_pos[1] += SPEED
     
-    #If the user clicked close: quit
     for event in pygame.event.get():
         if event.type == pygame.locals.QUIT:
             sys.exit(0)
+        
         elif event.type == pygame.locals.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 for _ in range(10):
                     print(names.generate_name())
+        
+        elif event.type == pygame.locals.MOUSEBUTTONDOWN:
+            if event.button == 1:
+                #attack
+                print("attack")
+            elif event.button == 3:
+                #right click
+                pass
 
 def render():
-    #Only use this function for graphical rendering.
-    #Other logic should go in update().
-    
     #Draw a gray background
     screen.fill(GRAY)
     
