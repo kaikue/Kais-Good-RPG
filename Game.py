@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import DOUBLEBUF
 import sys
 import Names
+import Attack
 
 #Global constants
 SCREEN_WIDTH = 640
@@ -16,6 +17,7 @@ SPEED = 5
 #Colors
 GRAY = (128, 128, 128)
 MAGENTA = (255, 0, 255)
+CYAN = (0, 255, 255)
 
 def start():
     #Initialize pygame
